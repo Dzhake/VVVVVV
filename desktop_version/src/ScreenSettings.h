@@ -19,6 +19,8 @@ struct ScreenSettings
     int scalingMode;
     bool linearFilter;
     bool badSignal;
+    float scale;
+    bool rotateScreen;
 };
 
 void ScreenSettings_default(struct ScreenSettings* _this);

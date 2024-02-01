@@ -393,7 +393,12 @@ static void menurender(void)
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Can not change the language while a textbox is displayed in-game."), tr, tg, tb);
             }
+            break;
         }
+        case 6:
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Modded Options"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Dumb options."), tr, tg, tb);
+            break;
         }
         break;
     case Menu::graphicoptions:
@@ -487,6 +492,38 @@ static void menurender(void)
         }
         break;
     }
+    case Menu::moddedmenu:
+        int next_y;
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle downscale"), tr, tg, tb);
+            next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Turn downscale on or off."), tr, tg, tb);
+
+            if (!game.scale)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: DOWNSCALE OFF"), tr / 2, tg / 2, tb / 2);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: DOWNSCALE ON"), tr, tg, tb);
+            }
+            break;
+        case 1:
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle screen rotation"), tr, tg, tb);
+            next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Turn screen rotation on or off."), tr, tg, tb);
+
+            if (!game.rotateScreen)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: SCREEN ROTATION OFF"), tr / 2, tg / 2, tb / 2);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: SCREEN ROTATION ON"), tr, tg, tb);
+            }
+            break;
+        }
+        break;
     case Menu::audiooptions:
         switch (game.currentmenuoption)
         {
@@ -2305,6 +2342,26 @@ void gamerender(void)
         if (map.towermode)
         {
             graphics.drawtowerspikes();
+        }
+
+        if (game.scale != 1)
+        {
+            graphics.set_render_target(graphics.gameplayScaleTexture);
+            SDL_Rect dest = { 0, 0, SCREEN_WIDTH_PIXELS / (1 / game.scale), SCREEN_HEIGHT_PIXELS / (1/game.scale)};
+            graphics.copy_texture(graphics.gameplayTexture, NULL, &dest);
+
+            graphics.set_render_target(graphics.gameplayTexture);
+            graphics.copy_texture(graphics.gameplayScaleTexture, &dest, NULL);
+        }
+
+        if (game.rotateScreen)
+        {
+            graphics.set_render_target(graphics.gameplayScaleTexture);
+            graphics.copy_texture(graphics.gameplayTexture, NULL, NULL);
+
+            graphics.set_render_target(graphics.gameplayTexture);
+            SDL_RenderCopyEx(gameScreen.m_renderer, graphics.gameplayScaleTexture, NULL, NULL, game.rotation, NULL, SDL_FLIP_NONE);
+            game.rotation = game.rotation + 1 % 360;
         }
     }
 

@@ -247,6 +247,8 @@ public:
     int screenshake_x;
     int screenshake_y;
 
+    SDL_Texture* gameplayScaleTexture;
+
     void render(void);
     void renderwithscreeneffects(void);
     void renderfixedpre(void);
@@ -421,6 +423,8 @@ public:
 
     void print_roomtext(int x, int y, const char* text, bool rtl);
 };
+
+
 
 #ifndef GRAPHICS_DEFINITION
 extern Graphics graphics;

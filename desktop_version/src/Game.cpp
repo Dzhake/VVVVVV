@@ -6543,6 +6543,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("game pad"));
         option(loc::gettext("accessibility"));
         option(loc::gettext("language"), graphics.textboxes.empty());
+        option(loc::gettext("modded options"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
@@ -6575,6 +6576,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("unfocus audio pause"));
         option(loc::gettext("room name background"));
         option(loc::gettext("return"));
+        menuyoff = 0;
+        maxspacing = 15;
+        break;
+    case Menu::moddedmenu:
+        option(loc::gettext("toggle downscale"));
+        option(loc::gettext("toggle screen rotation"));
+        option(loc::gettext("return"));
+
         menuyoff = 0;
         maxspacing = 15;
         break;

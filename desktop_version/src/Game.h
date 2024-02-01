@@ -110,7 +110,9 @@ namespace Menu
         timetrialcomplete,
         timetrialcomplete2,
         timetrialcomplete3,
-        gamecompletecontinue
+        gamecompletecontinue,
+
+        moddedmenu
     };
 }
 
@@ -598,6 +600,10 @@ public:
     int old_screenshot_border_timer;
     int screenshot_border_timer;
     bool screenshot_saved_success;
+
+    bool rotateScreen = false;
+    float rotation = 0;
+    float scale = false;
 };
 
 #ifndef GAME_DEFINITION

@@ -2526,7 +2526,39 @@ void scriptclass::run(void)
                     }
                 }
             }
-
+            else if (words[0] == "customcolor") // Dzhake was here :D
+            {
+                r = std::stoi(words[1]);
+                g = std::stoi(words[1]);
+                b = std::stoi(words[1]);
+            }
+            else if (words[0] == "better_destroy")
+            {
+                if (words[1] == "type")
+                {
+                    for (size_t edi = 0; edi < obj.entities.size(); edi++)
+                    {
+                        if (obj.entities[edi].type == std::stoi(words[2]) )
+                        {
+                            obj.disableentity(edi);
+                        }
+                    }
+                }
+                else if (words[1] == "rule")
+                {
+                    for (size_t edi = 0; edi < obj.entities.size(); edi++)
+                    {
+                        if (obj.entities[edi].rule == std::stoi(words[2]))
+                        {
+                            obj.disableentity(edi);
+                        }
+                    }
+                }
+            }
+            else if (words[0] == "target")
+            {
+                i = std::stoi(words[1]);
+            }
             position++;
         }
         else

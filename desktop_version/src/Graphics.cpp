@@ -192,6 +192,7 @@ void Graphics::create_buffers(void)
     tempScrollingTexture = CREATE_SCROLL_TEXTURE;
     towerbg.texture = CREATE_SCROLL_TEXTURE;
     titlebg.texture = CREATE_SCROLL_TEXTURE;
+    gameplayScaleTexture = CREATE_TEXTURE;
 
 #undef CREATE_SCROLL_TEXTURE
 #undef CREATE_TEXTURE
@@ -224,6 +225,8 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_FreeSurface, tempFilterDest);
     VVV_freefunc(SDL_FreeSurface, tempScreenshot);
     VVV_freefunc(SDL_FreeSurface, tempScreenshot2x);
+
+    VVV_freefunc(SDL_DestroyTexture, gameplayScaleTexture);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)

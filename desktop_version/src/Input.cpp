@@ -452,8 +452,9 @@ static void menuactionpress(void)
             break;
         case 5:
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::youwannaquit);
+            //game.createmenu(Menu::youwannaquit);
             map.nexttowercolour();
+            startmode(Start_QUIT); // -1 dumb question :D
             break;
         }
         break;
@@ -1058,6 +1059,12 @@ static void menuactionpress(void)
                 music.playef(Sound_CRY);
             }
             break;
+        case 6:
+            //Modded options
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::moddedmenu);
+            map.nexttowercolour();
+            break;
         default:
             /* Return */
             music.playef(Sound_VIRIDIAN);
@@ -1072,6 +1079,35 @@ static void menuactionpress(void)
             }
             break;
         }
+        break;
+    case Menu::moddedmenu:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            music.playef(Sound_VIRIDIAN);
+            if (game.scale != 1) game.scale = 1;
+            else game.scale = 0.8;
+            game.savesettings();
+            break;
+        case 1:
+            music.playef(Sound_VIRIDIAN);
+            game.rotateScreen = !game.rotateScreen;
+            break;
+        default:
+            /* Return */
+            music.playef(Sound_VIRIDIAN);
+            if (game.ingame_titlemode)
+            {
+                game.returntoingame();
+            }
+            else
+            {
+                game.returnmenu();
+                map.nexttowercolour();
+            }
+            break;
+        }
+        
         break;
     case Menu::audiooptions:
         switch (game.currentmenuoption)
